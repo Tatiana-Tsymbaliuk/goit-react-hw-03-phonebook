@@ -13,7 +13,7 @@ handelChange = (e) =>{
 }
    handelSubmitForm=(e)=>{
     e.preventDefault();
-    this.props.onSubmitForm({...this.state});
+    this.props.onSubmitForm(this.state);
     this.setState({ name: "", number: "" });
    }     
  render(){  

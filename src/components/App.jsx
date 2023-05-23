@@ -16,18 +16,31 @@ export class App extends React.Component{
     filter: '',
     }  
     
-    handleSubmit = (data) => {
-      const sameName = this.state.contacts
-        .map((cont) => cont.name)
-        .includes(data.name);
-      if (sameName) {
-        alert(`${data.name} is already in contacts`);
-      } else {
-        this.setState((prevState) => ({
-          contacts: [...prevState.contacts, {id: nanoid(), ...data }],
-        }));
-      }
+    handleSubmit = data => {
+      if (this.state.contacts.find(item=> item.name.toLowerCase() === data.name.toLowerCase())) {
+        alert(`Name is already in contacts`);
+        
+      } else{
+  
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, {id: nanoid(), ...data }],
+      }));}
+      
     };
+    
+    
+    // (data) => {
+    //   const sameName = this.state.contacts
+    //     .map((cont) => cont.name)
+    //     .includes(data.name);
+    //   if (this.state.contacts.find(contact => contact.name === sameName))  {
+    //     alert(`${sameName} is already in contacts`);
+    //   } else {
+    //     this.setState((prevState) => ({
+    //       contacts: [...prevState.contacts, {id: nanoid(), ...data }],
+    //     }));
+    //   }
+    // };
     changeFilter =(e)=>{
       this.setState({filter:e.currentTarget.value})
     }
@@ -48,7 +61,7 @@ export class App extends React.Component{
       this.setState({contacts: parsedContacts });
     }}
 
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(prevState){
       if(this.state.contacts !==prevState.contacts){
         localStorage.setItem('contacts', JSON.stringify(this.state.contacts) );
       }
